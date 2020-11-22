@@ -1,4 +1,4 @@
-***** gulp workflow project
+*** gulp workflow project
 ***
 
 > **gulp mkView --name**
