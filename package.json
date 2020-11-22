@@ -1,0 +1,37 @@
+{
+  "name": "gulp-project",
+  "version": "1.0.0",
+  "description": "gulp workflow project",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "zhaohuanyu",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-changed": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-inject": "^5.0.5",
+    "gulp-line-ending-corrector": "^1.0.3",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-template": "^5.0.0",
+    "gulp-uglify": "^3.0.2"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "ie 10"
+  ],
+  "dependencies": {
+    "core-js": "^3.7.0"
+  }
+}
