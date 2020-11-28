@@ -1,8 +1,9 @@
 ### gulp workflow project
 ***
+**npm install**
 
-> **gulp mkView --name**
+**gulp mkView --name**
 
-> **npm start**
+**npm start**
 
-<u>**原生js多页面生成小demo**</u>
+原生js多页面生成小demo
