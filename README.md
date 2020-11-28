@@ -5,4 +5,4 @@
 
 > **npm start**
 
-<u>**To be continue...**</u>
+<u>**原生js多页面生成小demo**</u>
