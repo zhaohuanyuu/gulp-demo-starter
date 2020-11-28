@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA;EACI,eAAe;EACf,kBAAkB,EAAA;;AAGtB;EACI,gBAAgB;EAChB,gCAAgC,EAAA","file":"index.css","sourcesContent":["h3{\n    margin: 5% auto;\n    text-align: center;\n}\n\np{\n    text-align: left;\n    font: bold 22px/22px pingfang-sc;\n}"]}

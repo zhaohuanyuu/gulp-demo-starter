@@ -1,4 +1,5 @@
-const hasItem = (arr, val) =>  arr.includes(val);
+var arr = [1,3,5,7];
 
-let arr = [1,2,3];
-arr = arr.map(item => item * 3);
+arr.reduce(function(acc, cur) {
+    console.log(acc, cur)
+})
