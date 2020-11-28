@@ -1,0 +1,55 @@
+@import "../../scss/common/variables.scss";
+@import "../../scss/common/mixins.scss";
+
+body {
+  @include flex-center;
+  min-height: 100vh;
+  background-color: #272727;
+}
+.menu-btn {
+  position: relative;
+  @include flex-center;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  // border: 3px solid #ffffff;
+  &.open .menu-btn__burger{
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+    &::before{
+      // transform: rotate(45deg) translate(35px, -35px);
+      transform: rotate(45deg) translate(35px, -35px);
+    }
+    &::after{
+      // transform: rotate(-45deg) translate(35px, 35px);
+      transform: rotate(-45deg) translate(35px, 35px);
+    }
+  }
+  %burger-style{
+    width: 50px;
+    height: 6px;
+    background: #ffffff;
+  }
+  .menu-btn__burger, %burger-style{
+    @extend %burger-style;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
+    transition: all .5s ease-in-out;
+    &::before, &::after{
+      content: '';
+      position: absolute;
+      @extend %burger-style;
+      box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
+      transition: all .5s ease-in-out;
+    }
+    &::before{
+      transform: translateY(-16px);
+    }
+    &::after{
+      transform: translateY(16px);
+    }
+  }
+}
+
