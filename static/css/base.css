@@ -1,3 +1,6 @@
 section, article, aside, figure, div, ul, li, dl, dt, dd, p, input, button, span, i, em, b{
     box-sizing: border-box;
 }
+ul, ol, li{
+  list-style: none;
+}

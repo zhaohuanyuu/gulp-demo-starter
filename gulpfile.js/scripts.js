@@ -10,7 +10,8 @@ function compileJs(browserSync, pathInfo) {
     path,
     dir
   } = pathInfo;
-  const outPutName = dir.substring(dir.lastIndexOf('/')+1);
+  const outPutReg = /src\/views\/(.*)/;
+  const outPutName = dir.match(outPutReg)[1];
 
   // console.log(`compileJs: ${path}`);
 

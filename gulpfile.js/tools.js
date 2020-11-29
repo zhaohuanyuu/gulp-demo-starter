@@ -29,32 +29,39 @@ function mkView(end) {
     { ext: "js", con: jsCon },
     { ext: "html", con: htmlCon },
   ];
+  const writeDirName = `${viewDir}/${viewName}`;
+  let writeTask = [];
 
-    const writeDirName = `${viewDir}/${viewName}`;
-
-    fs.mkdir(writeDirName, (err) => {
-      if (err) {
-        if (err.code === "EXIST") throw new Error("该目录已存在~");
-      } else {
-        writePaths.forEach((info, index) => {
-          const writeFileName = `${writeDirName}/index.${info.ext}`;
-          fs.writeFile(writeFileName, info.con, (err) => {
-            if (err) {
-              throw err;
-            } else {
-              console.log(`${viewName} > index.${info.ext}创建成功!`);
-  
-              if (info.ext === "html") {
-                return src(`${viewDir}/${viewName}/index.html`)
+  fs.mkdir(writeDirName, (err) => {
+    if (err) {
+      if (err.code === "EEXIST") console.log(viewName + "目录已存在~");
+    } else {
+      writePaths.forEach((info, index) => {
+        const writeFileName = `${writeDirName}/index.${info.ext}`;
+        writeTask.push(
+          new Promise((resolve, reject) => {
+            fs.writeFile(writeFileName, info.con, (err) => {
+              if (err) {
+                throw err;
+              } else {
+                if (info.ext === "html") {
+                  src(`${viewDir}/${viewName}/index.html`)
                   .pipe(template({ name: viewName }))
                   .pipe(dest(`${viewDir}/${viewName}`));
+                }
+                console.log(`${viewName} > index.${info.ext}创建成功!`);
+                resolve();
               }
-            }
-          });
-        })
-      }
-    });
-  end();
+            });
+          })
+        )
+      })
+      Promise.all(writeTask).then(() => {
+        console.log('执行完毕');
+        end();
+      })
+    }
+  });
 }
 
 module.exports = {

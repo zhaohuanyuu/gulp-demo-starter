@@ -12,7 +12,9 @@ function compileScss(browserSync, pathInfo) {
     path,
     dir
   } = pathInfo;
-  const outPutName = dir.substring(dir.lastIndexOf('/')+1);
+  console.log(pathInfo);
+  const outPutReg = /src\/views\/(.*)/;
+  const outPutName = dir.match(outPutReg)[1];
   
   // console.log(`compileScss: ${path}`);
 
