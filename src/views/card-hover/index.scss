@@ -1,0 +1,10 @@
+@import '../../scss/common/variables.scss';
+@import '../../scss/common/mixins.scss';
+
+.container{
+  img{
+    width: 200px;
+    height: 170px;
+    vertical-align: top;
+  }
+}

@@ -15,7 +15,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-user:before {
+.icon-tuitetwitter43:before {
+  content: "\e600";
+}
+
+.icon-T-insgram:before {
+  content: "\e671";
+}
+
+.icon-icon-facebook:before {
   content: "\e601";
 }
 
+.icon-user:before {
+  content: "\e610";
+}

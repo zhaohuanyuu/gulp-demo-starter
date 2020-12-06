@@ -1,12 +1,12 @@
 const tools = require('./tools');
-const serSync = require("./serve");
+const serveSync = require("./serve");
 const { htmlInject } = require("./statics");
 const { generateCommonCss } = require('./scss');
 
 const { series, parallel } = require("gulp");
 
 const build = parallel(
-    serSync,
+    serveSync,
     series(generateCommonCss, htmlInject)
 );
 

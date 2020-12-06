@@ -1,11 +1,8 @@
 const fs = require('fs');
-const path = require('path');
 const viewDir = './src/views';
-const scssDir = './src/scss';
-const jsDir = './src/js';
-const imgDir = './src/images';
 const { src, dest } = require('gulp');
 const template = require('gulp-template');
+const { pathToFileURL } = require('url');
 
 
 function getFileContent(filePath) {
@@ -20,9 +17,9 @@ function mkView(end) {
     throw new Error("view name is required... eg: gulp mkView --xxx");
   }
 
-  const cssCon = getFileContent("./static/template/template.scss");
-  const jsCon = getFileContent("./static/template/template.js");
-  const htmlCon = getFileContent("./static/template/template.html");
+  const cssCon = getFileContent("./public/template/template.scss");
+  const jsCon = getFileContent("./public/template/template.js");
+  const htmlCon = getFileContent("./public/template/template.html");
 
   const writePaths = [
     { ext: "scss", con: cssCon },
@@ -31,7 +28,7 @@ function mkView(end) {
   ];
   const writeDirName = `${viewDir}/${viewName}`;
   let writeTask = [];
-
+ 
   fs.mkdir(writeDirName, (err) => {
     if (err) {
       if (err.code === "EEXIST") console.log(viewName + "目录已存在~");
@@ -56,14 +53,22 @@ function mkView(end) {
           })
         )
       })
-      Promise.all(writeTask).then(() => {
-        console.log('执行完毕');
-        end();
-      })
+
+      Promise.all(writeTask).then(() => end())
     }
   });
 }
 
+function fileUnlink(path) {
+  try {
+    fs.unlinkSync(path);
+    console.log(path + ' delete completed!');
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = {
-  mkView
+  mkView,
+  fileUnlink
 };
