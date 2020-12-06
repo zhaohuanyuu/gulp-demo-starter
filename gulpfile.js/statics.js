@@ -1,21 +1,46 @@
-const inject = require('gulp-inject');
-const changed = require('gulp-changed');
+const { src, dest } = require("gulp");
+const inject = require("gulp-inject");
 const imagemin = require("gulp-imagemin");
+const { fileUnlink } = require('./tools');
 
-const { src, dest } = require('gulp');
+function optimizeImage(browserSync, pathInfo) {
+  const { path, dir, base, eventType } = pathInfo;
+  let srcPath = path;
+  const outPutReg = /src\/views\/(.*)/;
+  const outPutDir = dir.match(outPutReg)[1];
+  const distPath = `./dist/${outPutDir}`;
 
+  if (eventType === 'unlink') {
+    return fileUnlink(distPath+ '/' + base);
+  }
 
-function compactImage() {
-  return src(imgDir)
-    .pipe(changed(dist + "images"))
-    .pipe(
-      imagemin([
-        imagemin.gifsicle({ interlaced: true }),
-        imagemin.jpegtran({ progressive: true }),
-        imagemin.optipng({ optimizationLevelL: 5 }),
-      ])
-    )
-    .pipe(dest(dist + "/image/"));
+  return src(srcPath, {allowEmpty: true})
+          .pipe(
+            imagemin([
+              imagemin.gifsicle({
+                interlaced: true,
+              }),
+              imagemin.mozjpeg({
+                quality: 75,
+                progressive: true,
+              }),
+              imagemin.optipng({
+                optimizationLevel: 5,
+              }),
+              imagemin.svgo({
+                plugins: [
+                  {
+                    removeViewBox: true,
+                  },
+                  {
+                    cleanupIDs: false,
+                  },
+                ],
+              }),
+            ])
+          )
+          .pipe(dest(distPath))
+          .pipe(browserSync.stream());
 }
 
 function htmlInject() {
@@ -24,10 +49,10 @@ function htmlInject() {
     read: false,
   });
 
-  return target.pipe(inject(sources)).pipe(dest('./src/views'));
+  return target.pipe(inject(sources)).pipe(dest("./src/views"));
 }
 
 module.exports = {
   htmlInject,
-  compactImage
-}
+  optimizeImage,
+};

@@ -1,5 +1,7 @@
 section, article, aside, figure, div, ul, li, dl, dt, dd, p, input, button, span, i, em, b{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 ul, ol, li{
   list-style: none;

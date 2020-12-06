@@ -1,16 +1,13 @@
 const path = require("path");
-const { watch } = require("gulp");
-const scssFns = require("./scss");
-const scriptFns = require("./scripts");
+const watch = require('gulp-watch');
+
+const scssTask = require("./scss");
+const scriptTask = require("./scripts");
+const staticTask = require('./statics');
 const browserSync = require("browser-sync").create();
 const reload = browserSync.reload;
 
 const viewDir = "./src/views";
-const watcher = watch([
-  `${viewDir}/**/*.html`,
-  `${viewDir}/**/*.scss`,
-  `${viewDir}/**/*.js`,
-]);
 
 function serSync(end) {
   browserSync.init({
@@ -21,30 +18,31 @@ function serSync(end) {
     startPath: null,
   });
 
-  console.log(reload);
-
-  watcher.on("change", function (route, stats) {
+  watch(`${viewDir}/**/*`, { read: false }, function (vinyl) {
+    const { path: route, event: eventType } = vinyl;
     let pathInfo = path.parse(route);
     pathInfo.path = route;
+    pathInfo.eventType = eventType;
 
     switch (pathInfo.ext) {
       case ".html":
         reload();
         break;
       case ".scss":
-        scssFns.compileScss(browserSync, pathInfo);
+        scssTask.compileScss(browserSync, pathInfo);
         break;
       case ".js":
-        scriptFns.compileJs(browserSync, pathInfo);
+        scriptTask.compileJs(browserSync, pathInfo);
         break;
+      case ".png":
+      case ".jpg":
+      case ".jpeg":
+        staticTask.optimizeImage(browserSync, pathInfo);
       default:
         return null;
     }
   });
 
-  // watch(`${viewDir}/**/*.html`).on("change", reload);
-  // watch(`${viewDir}/**/*.scss`, scssFns.compileScss);
-  // watch(`${viewDir}/**/*.js`).on("change", scriptFns.compileJs);
   end();
 }
 
