@@ -1,12 +1,57 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>gulp dev workflow</title>
-    <link rel="stylesheet" href="/dist/css/common/common.min.css">
-    <link rel="stylesheet" href="/dist/css/index.css">
-</head>
-<body>
-    <h3>gulp wrokflow</h3>
-</body>
+    <link rel="stylesheet" href="/dist/css/common/common.min.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: #000000;
+      }
+      .counter {
+        width: 100%;
+        text-align: center;
+        font-size: 27vw;
+        font-weight: bold;
+        color: #bababa;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .counter span{
+        display: inline-block;
+        width: 35vw;
+        /* line-height: 57vh; */
+        line-height: 30vw;
+        border-radius: 2vw;
+        background-color: #0f0f0f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="counter">
+      <span class="hours">09</span>
+      <span class="minutes">21</span>
+    </div>
+    <script>
+      function clock() {
+        let now = new Date();
+        let hour = now.getHours() + "";
+        let minute = now.getMinutes() + "";
+        let month = now.getMonth() + 1 + "";
+        let day = now.getDate() + "";
+
+        const hours = document.querySelector('.hours');
+        const minutes = document.querySelector('.minutes');
+
+        hours.innerHTML = hour.padStart(2,"0");
+        minutes.innerHTML = minute.padStart(2, "0");
+      }
+
+      clock();
+
+      setInterval(clock, 1000);
+    </script>
+  </body>
 </html>
