@@ -18,7 +18,8 @@ function serveSync(end) {
     startPath: null,
   });
 
-  watch(`${viewDir}/**/*`, { read: false }, function (vinyl) {
+  // watch(`${viewDir}/**/*`, { read: false }, function (vinyl) {
+  watch(`./src/**/*`, { read: false }, function (vinyl) {
     const { path: route, event: eventType } = vinyl;
     let pathInfo = path.parse(route);
     pathInfo.path = route;
