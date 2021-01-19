@@ -9,7 +9,7 @@ const reload = browserSync.reload;
 
 const viewDir = "./src/views";
 
-function serSync(end) {
+function serveSync(end) {
   browserSync.init({
     open: false,
     server: {
@@ -46,4 +46,4 @@ function serSync(end) {
   end();
 }
 
-module.exports = serSync;
+module.exports = serveSync;
