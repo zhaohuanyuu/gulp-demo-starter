@@ -6,4 +6,4 @@
 
 **npm start**
 
-> 原生js多页面生成小demo
+> 基于gulp的多页面生成开发环境
