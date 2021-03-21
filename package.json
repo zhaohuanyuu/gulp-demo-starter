@@ -30,8 +30,5 @@
     "last 1 version",
     "> 1%",
     "ie 10"
-  ],
-  "dependencies": {
-    "core-js": "^3.7.0"
-  }
+  ]
 }
