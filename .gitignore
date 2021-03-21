@@ -1,4 +1,13 @@
-# uncommit files
-.idea
+# unuseless system fiels
 .DS_Store
-node_modules
+
+# editor fiels
+.idea
+.vscode
+
+# uncommit fiels
+dist/
+node_modules/
+
+# logs
+*.log
