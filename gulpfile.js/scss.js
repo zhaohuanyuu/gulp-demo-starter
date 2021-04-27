@@ -1,3 +1,4 @@
+const path = require('path');
 const sass = require("gulp-sass");
 const { src, dest } = require('gulp');
 const concat = require('gulp-concat');
@@ -6,20 +7,20 @@ const sourcemaps = require('gulp-sourcemaps');
 const autoPrefixer = require('gulp-autoprefixer');
 const lineec = require('gulp-line-ending-corrector');
 
+const { getOutputReg } = require('./utils');
+
 // compile scss into css
 function compileScss(browserSync, pathInfo) {
-  const {
-    path,
-    dir
-  } = pathInfo;
-  console.log(pathInfo);
-  const outPutReg = /src\/views\/(.*)/;
+  const { path: filePath, dir } = pathInfo;
+  // console.log(pathInfo);
+  const outPutReg = getOutputReg();
   const outPutName = dir.match(outPutReg)[1];
-  
-  // console.log(`compileScss: ${path}`);
+
+  // console.log(dir, dir.match(outPutReg));
+  console.log(`compileScss: ${filePath}`);
 
   // return src(["./src/scss/**/*.scss", "!./src/scss/common/*.scss"])
-  return src(path)
+  return src(filePath)
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sass({ outputStyle: "nested" }).on("error", sass.logError))
     .pipe(autoPrefixer("last 2 versions"))

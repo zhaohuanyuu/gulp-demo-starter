@@ -1,31 +1,32 @@
 const { src, dest } = require("gulp");
 const inject = require("gulp-inject");
 const imagemin = require("gulp-imagemin");
-const { fileUnlink } = require('./tools');
+const { fileUnlink, getOutputReg } = require('./utils');
 
 function optimizeImage(browserSync, pathInfo) {
   const { path, dir, base, eventType } = pathInfo;
   let srcPath = path;
-  const outPutReg = /src\/views\/(.*)/;
-  const outPutDir = dir.match(outPutReg)[1];
+  const outPutReg = getOutputReg();
+  let outPutDir = dir.match(outPutReg)[1];
+  if (outPutDir.indexOf('\\') > -1) outPutDir = outPutDir.replace(/\\/g, '/');
   const distPath = `./dist/${outPutDir}`;
 
   if (eventType === 'unlink') {
-    return fileUnlink(distPath+ '/' + base);
+    return fileUnlink(`${distPath}/${base}`);
   }
 
   return src(srcPath, {allowEmpty: true})
           .pipe(
             imagemin([
-              imagemin.gifsicle({
-                interlaced: true,
-              }),
               imagemin.mozjpeg({
                 quality: 75,
                 progressive: true,
               }),
               imagemin.optipng({
                 optimizationLevel: 5,
+              }),
+              imagemin.gifsicle({
+                interlaced: true,
               }),
               imagemin.svgo({
                 plugins: [

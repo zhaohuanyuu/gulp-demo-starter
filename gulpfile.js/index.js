@@ -1,9 +1,9 @@
-const tools = require('./tools');
-const serveSync = require("./serve");
-const { htmlInject } = require("./statics");
-const { generateCommonCss } = require('./scss');
-
 const { series, parallel } = require("gulp");
+
+const { mkView } = require('./utils');
+const serveSync = require("./serve");
+const { htmlInject } = require("./assets");
+const { generateCommonCss } = require('./scss');
 
 const build = parallel(
     serveSync,
@@ -11,4 +11,4 @@ const build = parallel(
 );
 
 exports.default = build;
-exports.mkView = tools.mkView;
+exports.mkView = mkView;

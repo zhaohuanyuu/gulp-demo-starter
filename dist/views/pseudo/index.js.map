@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.js"],"names":["console","log"],"mappings":"AAAA;;AAEAA,OAAO,CAACC,GAAR,CAAY,gBAAZ","sourcesContent":["'use strict';\n\nconsole.log('this is pseudo');\n"],"file":"index.js"}
