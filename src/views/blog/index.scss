@@ -1,0 +1,9 @@
+@import '../../scss/common/variables.scss';
+@import '../../scss/common/mixins.scss';
+
+.container{
+  min-height: 100vh;
+  // background-image: url('./img/background_white_pattern.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}

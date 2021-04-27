@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 const { src, dest } = require('gulp');
+const inject = require("gulp-inject");
 const template = require('gulp-template');
 
 const viewDir = './src/views';
@@ -13,6 +15,20 @@ const distDir = './dist'
  */
 function getFileContent(filePath) {
   return fs.readFileSync(filePath, 'utf-8');
+}
+
+function fileCopy(pathInfo) {
+  const { path, dir } = pathInfo;
+  const outPutName = getOutputName(dir);
+
+  fs.readFile(path, (err, data) => {
+    if (err) throw err;
+
+    fs.writeFile(`${distDir}/${outPutName}/index.html`, data, 'utf-8', err => {
+      if (err) throw err;
+      // console.log('write index html complete..');
+    })
+  })
 }
 
 /**
@@ -43,7 +59,7 @@ function mkView(end) {
   fs.mkdir(writeDirName, (err) => {
     if (err) {
       if (err.code === "EEXIST") {
-        console.log(viewName + "目录已存在~");
+        console.log(chalk.bgGrey('创建目录:'), chalk.redBright(chalk.underline(viewName) + "目录已存在~"));
         return false;
       }
     }
@@ -56,13 +72,18 @@ function mkView(end) {
             if (err) throw err;
 
             if (info.ext === "html") {
+              const assets = src(["./static/js/**/*.js", "./dist/css/common/*.css"], {
+                read: false,
+              });
+
               src(`${viewDir}/${viewName}/index.html`)
               .pipe(template({ name: viewName }))
+              .pipe(inject(assets))
               .pipe(dest(`${viewDir}/${viewName}`))
               .pipe(dest(`${distDir}/${viewName}`));
             }
-            console.log(`${viewName} > index.${info.ext}创建成功!`);
-            resolve();
+            console.log(chalk.bgGrey('创建模板:'), `${viewName} > index.${info.ext}创建成功!`);
+            resolve(viewName);
           });
         })
       )
@@ -79,7 +100,7 @@ function mkView(end) {
 function fileUnlink(path) {
   try {
     fs.unlinkSync(path);
-    console.log(path + ' delete completed!');
+    console.log(chalk.bgGrey('删除文件:'), chalk.underline(path) + ' delete completed!');
   } catch (err) {
     // throw err;
   }
@@ -87,15 +108,18 @@ function fileUnlink(path) {
 
 /**
  * @method 获取改动页面正则
- * @returns {RegExp}
+ * @param dir
  */
-function getOutputReg() {
+function getOutputName(dir) {
   const separator = path.sep;
-  return new RegExp(`src\\${separator}views\\${separator}(.*)`)
+  const reg = new RegExp(`src\\${separator}views\\${separator}(.*)`);
+  const outPutName = dir.match(reg)[1];
+  return outPutName || '';
 }
 
 module.exports = {
   mkView,
+  fileCopy,
   fileUnlink,
-  getOutputReg
+  getOutputName
 };

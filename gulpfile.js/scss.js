@@ -7,14 +7,12 @@ const sourcemaps = require('gulp-sourcemaps');
 const autoPrefixer = require('gulp-autoprefixer');
 const lineec = require('gulp-line-ending-corrector');
 
-const { getOutputReg } = require('./utils');
+const { getOutputName } = require('./utils');
 
 // compile scss into css
 function compileScss(browserSync, pathInfo) {
   const { path: filePath, dir } = pathInfo;
-  // console.log(pathInfo);
-  const outPutReg = getOutputReg();
-  const outPutName = dir.match(outPutReg)[1];
+  const outPutName = getOutputName(dir);
 
   // console.log(dir, dir.match(outPutReg));
   console.log(`compileScss: ${filePath}`);
