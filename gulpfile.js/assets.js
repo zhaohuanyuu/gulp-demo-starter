@@ -1,21 +1,25 @@
 const { src, dest } = require("gulp");
 const inject = require("gulp-inject");
 const imagemin = require("gulp-imagemin");
-const { fileUnlink, getOutputReg } = require('./utils');
+const { fileUnlink, getOutputName } = require('./utils');
 
+/**
+ * @method 图片体积优化
+ * @param browserSync
+ * @param pathInfo
+ * @returns {void|*}
+ */
 function optimizeImage(browserSync, pathInfo) {
   const { path, dir, base, eventType } = pathInfo;
-  let srcPath = path;
-  const outPutReg = getOutputReg();
-  let outPutDir = dir.match(outPutReg)[1];
-  if (outPutDir.indexOf('\\') > -1) outPutDir = outPutDir.replace(/\\/g, '/');
-  const distPath = `./dist/${outPutDir}`;
+  let outPutName = getOutputName(dir);
+  if (outPutName.indexOf('\\') > -1) outPutName = outPutName.replace(/\\/g, '/');
+  const distPath = `./dist/${outPutName}`;
 
   if (eventType === 'unlink') {
     return fileUnlink(`${distPath}/${base}`);
   }
 
-  return src(srcPath, {allowEmpty: true})
+  return src(path, {allowEmpty: true})
           .pipe(
             imagemin([
               imagemin.mozjpeg({
@@ -44,6 +48,10 @@ function optimizeImage(browserSync, pathInfo) {
           .pipe(browserSync.stream());
 }
 
+/**
+ * @method 模板注入
+ * @returns {*}
+ */
 function htmlInject() {
   const target = src("./src/views/**/*.html");
   const sources = src(["./static/js/**/*.js", "./dist/css/common/*.css"], {
@@ -54,6 +62,5 @@ function htmlInject() {
 }
 
 module.exports = {
-  htmlInject,
   optimizeImage,
 };

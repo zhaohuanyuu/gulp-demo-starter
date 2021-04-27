@@ -4,6 +4,7 @@ const watch = require('gulp-watch');
 const scssTask = require("./scss");
 const scriptTask = require("./scripts");
 const assetsTask = require('./assets');
+const { fileCopy } = require('./utils');
 const browserSync = require("browser-sync").create();
 const reload = browserSync.reload;
 
@@ -27,6 +28,7 @@ function serSync(end) {
     switch (pathInfo.ext) {
       case ".html":
         reload();
+        fileCopy(pathInfo);
         break;
       case ".scss":
         scssTask.compileScss(browserSync, pathInfo);

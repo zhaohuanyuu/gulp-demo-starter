@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAGA;EAEI,YAAY;EACZ,aAAa;EACb,mBAAmB,EAAA","file":"index.css","sourcesContent":["@import '../../scss/common/variables.scss';\n@import '../../scss/common/mixins.scss';\n\n.container{\n  img{\n    width: 200px;\n    height: 170px;\n    vertical-align: top;\n    //border-radius: 50%;\n  }\n}\n"]}
