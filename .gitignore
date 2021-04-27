@@ -1,5 +1,5 @@
 # unuseless system fiels
-.DS_Store
+**/*/.DS_Store
 
 # editor fiels
 .idea

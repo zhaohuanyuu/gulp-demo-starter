@@ -5,12 +5,15 @@ const uglify = require("gulp-uglify");
 const sourcemaps = require("gulp-sourcemaps");
 const lineec = require("gulp-line-ending-corrector");
 
+const { getOutputReg } = require('./utils');
+
+
 function compileJs(browserSync, pathInfo) {
   const {
     path,
     dir
   } = pathInfo;
-  const outPutReg = /src\/views\/(.*)/;
+  const outPutReg = getOutputReg();
   const outPutName = dir.match(outPutReg)[1];
 
   // console.log(`compileJs: ${path}`);

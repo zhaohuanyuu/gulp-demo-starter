@@ -3,7 +3,7 @@ const watch = require('gulp-watch');
 
 const scssTask = require("./scss");
 const scriptTask = require("./scripts");
-const staticTask = require('./statics');
+const assetsTask = require('./assets');
 const browserSync = require("browser-sync").create();
 const reload = browserSync.reload;
 
@@ -37,7 +37,7 @@ function serSync(end) {
       case ".png":
       case ".jpg":
       case ".jpeg":
-        staticTask.optimizeImage(browserSync, pathInfo);
+        assetsTask.optimizeImage(browserSync, pathInfo);
       default:
         return null;
     }
