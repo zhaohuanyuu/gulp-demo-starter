@@ -6,4 +6,4 @@
 
 **npm start**
 
-> 基于gulp的多页面生成开发环境
+> multi demo page generator base on gulp
