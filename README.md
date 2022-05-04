@@ -1,9 +1,10 @@
-### gulp workflow project
-***
-**npm install**
+## gulp workflow project
 
-**gulp mkView --name**
+multi demo page generator base on gulp
 
-**npm start**
-
-> multi demo page generator base on gulp
+### Quick Start
+```shell
+$ npm install
+$ gulp mkView --name
+$ npm start
+```
